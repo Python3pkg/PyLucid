@@ -4,10 +4,10 @@
 """
     PyLucid distutils setup
     ~~~~~~~~~~~~~~~~~~~~~~~
-    
+
     Links
     ~~~~~
-    
+
     http://www.python-forum.de/viewtopic.php?f=21&t=26895 (de)
 
     :copyleft: 2009-2016 by the PyLucid team, see AUTHORS for more details.
@@ -211,6 +211,8 @@ setup_info = dict(
         pylucid_installer=pylucid_installer.pylucid_installer:cli
     ''',
     install_requires=["Click",],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest-django','pytest'],
     test_suite = "runtests.run_tests",
     zip_safe=False,
     classifiers=[

@@ -23,13 +23,13 @@
 import os
 import sys
 
+import pytest
+
 if sys.version_info < (3, 4):
     print("\nERROR: PyLucid requires Python 3.4 or greater!\n")
     sys.exit(101)
 
 import django
-from django.conf import settings
-from django.test.utils import get_runner
 
 from pylucid_installer.page_instance_template import example_project
 
@@ -39,20 +39,13 @@ sys.path.append(
 )
 
 
-def run_tests(test_labels=None):
+def run_tests():
     os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
     django.setup()
 
-    TestRunner = get_runner(settings)
-    test_runner = TestRunner(verbosity=2)
-
-    if test_labels is None:
-        test_labels = ['tests']
-    failures = test_runner.run_tests(test_labels)
-
-    sys.exit(bool(failures))
+    sys.exit(pytest.main())
 
 
 if __name__ == "__main__":
-    run_tests(test_labels = sys.argv[1:])
+    run_tests()
 

@@ -21,6 +21,8 @@ werkzeug
 python-creole
 docutils
 
+pytest-django
+pytest-cov
 
 # clone PyLucid own projects with git push access
 #-------------------------------------------------

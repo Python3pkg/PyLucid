@@ -10,14 +10,19 @@
 """
 
 import os
+import sys
 import pprint
 import shutil
 import subprocess
 import tempfile
 from unittest import TestCase
 
-import sys
+import pytest
+
 from click.testing import CliRunner
+from django.core import management
+from django.test import modify_settings
+from django.test import override_settings
 
 from pylucid_installer.pylucid_installer import cli
 from pylucid_installer.page_instance_template import example_project
@@ -117,6 +122,8 @@ class IsolatedFilesystemTestCase(BaseTestCase):
 
 class PageInstanceTestCase(IsolatedFilesystemTestCase):
     """
+    Only for ./manage.py call tests
+
     -Create a page instance with the pylucid_installer cli
     -run the test in the created page instance
     """
@@ -166,3 +173,41 @@ class PageInstanceTestCase(IsolatedFilesystemTestCase):
         # self.subprocess_getstatusoutput(['python -c "import sys,pprint;pprint.pprint(sys.path)"'], **kwargs)
 
         return self.subprocess_getstatusoutput(cmd, **kwargs)
+
+
+class ExampleProjectMixIn(object):
+    """
+    For tests that used Client() teste with the existing example project
+    """
+    @classmethod
+    def setUpClass(cls):
+        super(ExampleProjectMixIn, cls).setUpClass()
+
+        cls.temp_path = tempfile.mkdtemp(prefix="pylucid_unittest_%s_" % cls.__class__.__name__)
+
+        from pylucid_installer.page_instance_template import example_project
+
+        cls.settings_override = override_settings(
+            ROOT_URLCONF='pylucid_installer.page_instance_template.example_project.urls',
+            MEDIA_ROOT=os.path.join(cls.temp_path, 'media'),
+            STATIC_ROOT = os.path.join(cls.temp_path, 'static'),
+            COMPRESS_ROOT = os.path.join(cls.temp_path, 'static'),
+
+            # for copy pylucid_installer/page_instance_template/example_project/static/css/styles.css
+            STATICFILES_DIRS = [os.path.abspath(os.path.join(os.path.dirname(example_project.__file__), "static"))]
+        )
+        cls.settings_override.enable()
+
+        management.call_command('collectstatic', verbosity=1, interactive=False)
+        print(os.listdir(os.path.join(cls.temp_path, 'static', 'css')))
+        assert os.path.isfile(os.path.join(cls.temp_path, 'static', 'css', 'styles.css'))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.settings_override.disable()
+        try:
+            shutil.rmtree(cls.temp_path)
+        except (OSError, IOError):
+            pass
+
+        super(ExampleProjectMixIn, cls).tearDownClass()
