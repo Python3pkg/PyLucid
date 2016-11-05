@@ -73,7 +73,7 @@ You can create a new page instance with the **pylucid_installer** cli programm:
 (PyLucid_env) ~/page_instance $ ./manage.py collectstatic
 
 # run developer server:
-(PyLucid_env) ~/page_instance $ ./manage.py runserver
+(PyLucid_env) ~/page_instance $ ./manage.py runserver --insecure
 }}}
 
 Info: You can also create more than one page instance! All page instance will use the same environment.
