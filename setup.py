@@ -202,9 +202,7 @@ setup_info = dict(
     maintainer="Jens Diemer",
     url='http://www.pylucid.org',
     download_url = 'http://www.pylucid.org/en/download/',
-    packages=find_packages(
-        #exclude=[".project", ".pydevproject", "pylucid_project.external_plugins.*"]
-    ),
+    packages=find_packages(),
     include_package_data=True, # include package data under version control
     entry_points='''
         [console_scripts]
@@ -212,16 +210,12 @@ setup_info = dict(
     ''',
     install_requires=["Click",],
     setup_requires=['pytest-runner'],
-    tests_require=['pytest-django','pytest'],
     test_suite = "runtests.run_tests",
     zip_safe=False,
     classifiers=[
-        "Development Status :: 4 - Beta",
-#         "Development Status :: 5 - Production/Stable",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
-#        "Intended Audience :: Education",
-#        "Intended Audience :: End Users/Desktop",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",

@@ -1,9 +1,19 @@
+#
+# .coveragerc to control coverage.py
+#
+# https://coverage.readthedocs.io/en/latest/config.html
+#
+
 [run]
 branch = True
 source = pylucid
 
 [report]
-omit = ../*migrations*,../*tests*,../*compat.*
+omit =
+    ../*migration*
+    ../*tests*
+    ../*compat.*
+
 # Regexes for lines to exclude from consideration
 exclude_lines =
     # Have to re-enable the standard pragma
@@ -24,4 +34,4 @@ exclude_lines =
 ignore_errors = True
 
 [html]
-directory = coverage_html
+directory = coverage_html_report

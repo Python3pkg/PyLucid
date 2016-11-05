@@ -15,7 +15,7 @@ install:
   - pip freeze
 
 script:
-  - coverage run ./setup.py test
+   - ./setup.py test
 
 after_success:
   - coveralls
