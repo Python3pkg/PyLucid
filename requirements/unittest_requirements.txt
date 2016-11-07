@@ -2,5 +2,3 @@ coveralls
 pytest
 pytest-django
 pytest-cov
-
--r normal_installation.txt
