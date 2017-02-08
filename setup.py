@@ -193,6 +193,17 @@ if "publish" in sys.argv:
     sys.exit(0)
 
 
+
+if "test" in sys.argv:
+    # Made the 'example_project' importable to use it in unittests
+
+    from pylucid_installer.page_instance_template import example_project
+    sys.path.append(
+        os.path.join(os.path.dirname(example_project.__file__), os.pardir)
+    )
+
+
+
 setup_info = dict(
     name='PyLucid',
     version=__version__,
@@ -209,7 +220,7 @@ setup_info = dict(
         pylucid_installer=pylucid_installer.pylucid_installer:cli
     ''',
     install_requires=["Click",],
-    setup_requires=['pytest-runner'],
+    setup_requires=['pytest', 'pytest-runner', 'pytest-django', 'pytest-cov'],
     test_suite = "runtests.run_tests",
     zip_safe=False,
     classifiers=[

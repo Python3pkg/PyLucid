@@ -10,8 +10,9 @@ python:
 
 install:
   - pip install --upgrade pip
+  - pip install -r requirements/normal_installation.txt
+  - pip install -r requirements/unittest_requirements.txt
   - pip install .
-  - pip install -r requirements/unittest_installation.txt
   - pip freeze
 
 script:

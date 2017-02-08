@@ -29,14 +29,8 @@ if sys.version_info < (3, 4):
     print("\nERROR: PyLucid requires Python 3.4 or greater!\n")
     sys.exit(101)
 
+
 import django
-
-from pylucid_installer.page_instance_template import example_project
-
-# Made the 'example_project' importable to use it in unittests
-sys.path.append(
-    os.path.join(os.path.dirname(example_project.__file__), os.pardir)
-)
 
 
 def run_tests():
