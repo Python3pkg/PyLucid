@@ -182,11 +182,11 @@ ALLOWED_HOSTS = [
 # DEBUG
 
 # *** SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-INTERNAL_IPS = (
-    '127.0.0.1',
-    '::1',
-)
+DEBUG = True
+
+# https://github.com/jedie/django-tools#internalips---unix-shell-style-wildcards-in-internal_ips
+from django_tools.settings_utils import InternalIps
+INTERNAL_IPS = InternalIps(["127.0.0.1", "::1", "192.168.*.*", "10.0.*.*"])
 
 
 #____________________________________________________________________
