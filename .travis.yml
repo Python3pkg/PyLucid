@@ -4,9 +4,11 @@ language: python
 sudo: false
 
 python:
-  # see: https://docs.djangoproject.com/en/dev/faq/install/#faq-python-version-support
+  # https://docs.djangoproject.com/en/dev/faq/install/#faq-python-version-support
+  # https://docs.travis-ci.com/user/languages/python/
   - "3.4"
   - "3.5"
+  - "pypy3"
 
 install:
   - travis_retry pip install --upgrade pip
