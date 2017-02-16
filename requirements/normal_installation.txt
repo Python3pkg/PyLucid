@@ -25,7 +25,7 @@ django-tools>=0.30,<0.31
 #django-processinfo>=0.7.0,<0.8
 
 # http://pypi.python.org/pypi/django-reversion-compare/
-django-reversion-compare>=0.6,<0.7
+django-reversion-compare>=0.7,<0.8
 
 # https://github.com/jedie/cmsplugin-pygments
 cmsplugin-pygments>=0.8.2,<0.9
