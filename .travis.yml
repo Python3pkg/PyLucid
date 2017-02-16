@@ -9,17 +9,17 @@ python:
   - "3.5"
 
 install:
-  - pip install --upgrade pip
-  - pip install -r requirements/normal_installation.txt
-  - pip install -r requirements/unittest_requirements.txt
-  - pip install .
-  - pip freeze
+  - travis_retry pip install --upgrade pip
+  - travis_retry pip install -r requirements/normal_installation.txt
+  - travis_retry pip install -r requirements/unittest_requirements.txt
+  - travis_retry pip install .
+  - travis_retry pip freeze
 
 script:
    - ./setup.py test
 
 after_success:
-  - coveralls
+  - travis_retry coveralls
 
 notifications:
   irc: "irc.freenode.org#pylucid"
