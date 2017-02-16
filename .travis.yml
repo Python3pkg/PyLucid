@@ -11,9 +11,9 @@ python:
 
 install:
   - travis_retry pip install --upgrade pip
-  - travis_retry pip install .
-  - travis_retry pip install -r requirements/normal_installation.txt
   - travis_retry pip install -r requirements/unittest_requirements.txt
+  - travis_retry pip install . --no-deps
+  - travis_retry pip install -r requirements/normal_installation.txt
   - travis_retry pip freeze
 
 script:
