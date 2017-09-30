@@ -1,24 +1,43 @@
-# Config file for automatic testing at travis-ci.org
-
-language: python
-sudo: false
-
+os:
+  - linux
 python:
-  # see: https://docs.djangoproject.com/en/dev/faq/install/#faq-python-version-support
-  - "3.4"
-  - "3.5"
+  - "2.7"
+  - "3.6"
+  - "nightly" # currently points to 3.7-dev
+
+dist: trusty
+sudo: required
+language: python
+
+
+before_install:
+  # Show build setup
+  - uname -a
+  - cat /etc/os-release
+  - pwd
+  - free -tm
+  - python --version
+  - git --version
+  - pip install -r requirements.txt
 
 install:
+  - python setup.py install
   - pip install --upgrade pip
   - pip install .
   - pip install -r requirements/unittest_installation.txt
   - pip freeze
 
 script:
+  - python helpTest.py | grep PyLucid
   - coverage run ./setup.py test
-
+  
 after_success:
   - coveralls
+  - echo "OK, all done."
 
 notifications:
-  irc: "irc.freenode.org#pylucid"
+  email:
+    recipients:
+      - ralic.lo.eng@ieee.org
+    on_success: always # default: change
+    on_failure: never # default: always
